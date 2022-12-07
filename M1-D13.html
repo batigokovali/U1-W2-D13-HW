@@ -55,7 +55,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       type="button" 
       value="Add new Task" 
       class="buttons" 
-      onclick="addNewTask(event)" />
+      onclick="addNewTask()" />
 
     <!-- EXERCISE 3
         Create a button "Remove Last Task" to trigger the method "removeLast"
@@ -75,7 +75,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       value="Remove First Task"
       class="buttons" 
       id="remove-first-task"
-      onclick="removeFirst(event)" />
+      onclick="removeFirst()" />
 
     <ul id="myTaskList"></ul>
 
@@ -95,7 +95,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       type="button" 
       value="Sort"
       class="buttons" 
-      onclick="bubblesort()" />
+      onclick="bubbleSort()" />
 
     <script>
       /* EXERCISE 5: 
@@ -105,7 +105,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                 - Use the document.createElement to create the new List Item
                 - Append the LI child to the UL
             */
-      function addNewTask(eventData)
+      function addNewTask()
       {
         let inputValue = document.getElementById('newTask').value
         let newTaskNode = document.createElement('li')
@@ -150,6 +150,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
            tasksAsString[i] = tasksArray[i].innerText;
           }
           console.log(tasksAsString);
+          return tasksAsString;
         }
 
       /* EXERCISE 9:
@@ -180,20 +181,21 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                - Break the code into many function for semplicity 
                - Reuse the functions previously created
             */
-        function bubbleSort()
-        {
-          
-          let elements = getTasksAsArray();
-          elements.sort(function (a,b)
-          {
-            return a.length - b.length;
-            console.log(elements)
-          }
-            
-          );
-          
-        }
 
+        function bubbleSort() 
+        {
+          let elements = getTasksAsArray();
+          alphabeticallyOrdered = elements.sort((a,b) => a.localeCompare(b));
+          ulNode = document.getElementById("myTaskList");
+          ulNode.innerHTML = '';
+          for (let i = 0; i < alphabeticallyOrdered.length; i++) 
+          { 
+            let newListItem = document.createElement('li');
+            ulNode.appendChild(newListItem);
+            newListItem.innerText = alphabeticallyOrdered[i];
+            newListItem.classList.add(('task-list'))
+          }
+        }
     </script>
   </body>
 </html>
